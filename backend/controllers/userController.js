@@ -115,3 +115,4 @@ exports.forgotPassword = catchAsyncError(
 
     }
 )
+
