@@ -109,3 +109,16 @@ exports.getProductDetail = catchAsyncError(
 
     }
 )
+
+// Create New Review or Update the review
+exports.createProductReview = catchAsyncError(
+    async (req, res, next) => {
+
+        const { rating, comment, productId } = req.body
+
+        const review = {
+            user: req.user._id,
+            name: req.user.name
+        }
+    }
+)
