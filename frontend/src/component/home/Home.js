@@ -22,7 +22,7 @@ const Home = () => {
     const distpatch = useDispatch();
 
     useEffect(() => {
-        distpatch(getProduct)
+        distpatch(getProduct())
     }, [distpatch])
 
     return (
@@ -31,11 +31,11 @@ const Home = () => {
 
             <Header />
             <Hero />
-            <div className="text-[30px] font-[800] text-center mt-[50px]">
+            <div className="text-[30px] font-[800] overflow-hidden text-center mt-[50px]">
                 <h1>Featured Products</h1>
                 <hr className="border border-[2px] border-[#E8BD0D] mx-[35%] mt-[15px]" />
             </div>
-            <div className=" mx-[50px] w-[100%] flex flex-wrap" id="container">
+            <div className=" lg:mx-[50px] mx-auto w-[100%] h-[100%] pb-[50px] overflow-hidden flex flex-wrap" id="container">
                 <Products product={product} />
                 <Products product={product} />
                 <Products product={product} />
