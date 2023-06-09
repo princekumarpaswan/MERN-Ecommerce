@@ -1,8 +1,13 @@
-import React from "react";
+import React, { Fragment, useEffect } from "react";
 import Footer from "../layout/footer/footer";
 import Header from "../layout/header/Header"
 import Hero from "./Hero";
 import Products from "./product";
+import MetaData from "../layout/MetaData";
+import { getProduct } from "../../actions/productAction";
+import { useDispatch } from "react-redux"
+
+
 
 const product = {
     name: "Blue Tshirt",
@@ -13,8 +18,17 @@ const product = {
 
 
 const Home = () => {
+
+    const distpatch = useDispatch();
+
+    useEffect(() => {
+        distpatch(getProduct)
+    }, [distpatch])
+
     return (
-        <>
+        <Fragment>
+            <MetaData title={"PrestaShop"} />
+
             <Header />
             <Hero />
             <div className="text-[30px] font-[800] text-center mt-[50px]">
@@ -32,7 +46,7 @@ const Home = () => {
                 <Products product={product} />
             </div>
             <Footer />
-        </>
+        </Fragment>
     )
 }
 
