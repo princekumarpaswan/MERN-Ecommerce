@@ -1,6 +1,4 @@
 import React, { Fragment, useEffect } from "react";
-import Footer from "../layout/footer/footer";
-import Header from "../layout/header/Header"
 import Hero from "./Hero";
 import Products from "./product";
 import MetaData from "../layout/MetaData";
@@ -8,6 +6,7 @@ import { getProduct } from "../../actions/productAction";
 import { useDispatch, useSelector } from "react-redux"
 import Loader from "../loader/loadre";
 import { useAlert } from "react-alert";
+
 
 
 
@@ -33,7 +32,6 @@ const Home = () => {
             {loading ? <Loader /> : <Fragment>
                 <MetaData title={"PrestaShop"} />
 
-                <Header />
                 <Hero />
                 <div className="text-[30px] font-[800] overflow-hidden text-center mt-[50px]">
                     <h1>Featured Products</h1>
@@ -48,7 +46,6 @@ const Home = () => {
                     }
 
                 </div>
-                <Footer />
             </Fragment>}
         </>
     )
