@@ -31,7 +31,7 @@ const ProductDetail = () => {
 
     return (
         <Fragment>
-            <div className="w-[100vw] max-w-[100%] flex  box-border  p-[6vmax] " >
+            <div className="w-[100vw] max-w-[100%] flex gap-[200px]  box-border  p-[6vmax] " >
                 <div className=" lg:w-[29%] ml-[10%] ">
                     <Carousel >
                         {
@@ -45,29 +45,35 @@ const ProductDetail = () => {
                 <div>
 
                     <div>
-                        <h2>{product.name}</h2>
+                        <h2 className="text-[35px] font-[800] " >{product.name}</h2>
                         <p>Product #{product._id}</p>
                     </div>
+                    <hr className="h-[2px] bg-[#758283] mt-[5px] w-[30rem] " />
 
-                    <div>
+                    <div className="flex my-[20px] items-center gap-[10px]" >
                         <ReactStars {...options} />
                         <span>({product.numOfReviews} Reviews)</span>
                     </div>
 
-                    <div>
-                        <h1>&#8377;{product.price}</h1>
+                    <hr className="h-[2px] bg-[#758283] mt-[5px] w-[30rem] " />
 
-                        <div>
+                    <div className="my-[20px] " >
+                        <h1 className="text-[30px] font-[800]" ><span className="text-[25px]" >&#8377;</span>{product.price}</h1>
+
+                        <div className="flex items-center gap-[15px]" >
                             <div>
-                                <button>-</button>
-                                <input value="1" type="number" />
-                                <button>+</button>
+                                <button className="w-[1.5rem] bg-[#758283] text-white font-[900] my-[15px] " >-</button>
+                                <input className="w-[3rem] pl-[12px] text-center " value="1" type="number" />
+                                <button className="w-[1.5rem] bg-[#758283] text-white font-[900] my-[15px] " >+</button>
                             </div>
-                            <button>Add to Cart</button>
+                            <button className="bg-[#E8BD0D] w-[8rem] text-white font-[800] h-[25px] rounded-[40px] " >Add to Cart</button>
                         </div>
 
-                        <p>Status:
-                            <b className={product.Stock < 1 ? "text-[red]" : "text-[green]"} >
+
+                        <hr className="h-[2px] bg-[#758283] mt-[10px] w-[30rem] " />
+
+                        <p className="my-[20px]  text-[15px] font-[600] " >Status:
+                            <b className={product.Stock < 1 ? "text-[red]" : "text-[green] ml-[5px]"} >
                                 {product.Stock < 1 ? "OutOfStock" : "InStock"}
                             </b>
                         </p>
