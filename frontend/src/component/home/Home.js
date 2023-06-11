@@ -2,7 +2,7 @@ import React, { Fragment, useEffect } from "react";
 import Hero from "./Hero";
 import Products from "./product";
 import MetaData from "../layout/MetaData";
-import { getProduct } from "../../actions/productAction";
+import { clearError, getProduct } from "../../actions/productAction";
 import { useDispatch, useSelector } from "react-redux"
 import Loader from "../loader/loadre";
 import { useAlert } from "react-alert";
@@ -21,7 +21,8 @@ const Home = () => {
     useEffect(() => {
 
         if (error) {
-            return alert.error(error);
+            alert.error(error);
+            distpatch(clearError())
         }
 
         distpatch(getProduct())
