@@ -10,7 +10,6 @@ import { useAlert } from "react-alert";
 
 const ProductDetail = () => {
     let { id } = useParams()
-    console.log(`prince${id}`);
     const dispatch = useDispatch();
 
     const alert = useAlert();

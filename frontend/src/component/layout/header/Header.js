@@ -24,14 +24,14 @@ const Header = () => {
                             </a>
                             {/* <!-- Nav Links --> */}
                             <ul className="hidden md:flex px-4 mx-auto font-[800] text-[20px] font-heading space-x-12">
-                                <li><a className="hover:text-red-900" href="/home">Home</a></li>
-                                <li><a className="hover:text-red-900" href="/home">Product</a></li>
-                                <li><a className="hover:text-red-900" href="/home">Contact</a></li>
-                                <li><a className="hover:text-red-900" href="/home">About</a></li>
+                                <li><a className="hover:text-red-900" href="/">Home</a></li>
+                                <li><a className="hover:text-red-900" href="/products">Product</a></li>
+                                <li><a className="hover:text-red-900" href="/contact">Contact</a></li>
+                                <li><a className="hover:text-red-900" href="/about">About</a></li>
                             </ul>
                             {/* <!-- Header Icons --> */}
                             <div className="hidden xl:flex items-center space-x-5 items-center">
-                                <a className="hover:text-gray-200 " href="/home">
+                                <a className="hover:text-gray-200 " href="/search">
                                     < FiSearch className="h-6 w-6" />
                                 </a>
                                 <a className="flex items-center hover:text-gray-200" href="/home">
