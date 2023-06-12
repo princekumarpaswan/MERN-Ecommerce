@@ -3,10 +3,6 @@ import logo from "./image/logo.png";
 import { FiSearch } from "react-icons/fi"
 
 
-
-
-
-
 const Header = () => {
     return (
 
@@ -25,7 +21,7 @@ const Header = () => {
                             {/* <!-- Nav Links --> */}
                             <ul className="hidden md:flex px-4 mx-auto font-[800] text-[20px] font-heading space-x-12">
                                 <li><a className="hover:text-red-900" href="/">Home</a></li>
-                                <li><a className="hover:text-red-900" href="/products">Product</a></li>
+                                <li><a className="hover:text-red-900" href="/products">Products</a></li>
                                 <li><a className="hover:text-red-900" href="/contact">Contact</a></li>
                                 <li><a className="hover:text-red-900" href="/about">About</a></li>
                             </ul>
