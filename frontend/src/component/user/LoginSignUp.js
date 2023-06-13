@@ -4,7 +4,7 @@ import Loader from "../loader/loadre";
 import { Link } from "react-router-dom";
 import MailOutlineIcon from "@mui/icons-material/MailOutline";
 import LockOpenIcon from "@mui/icons-material/LockOpen";
-import { Avatar } from "@mui/material";
+// import { Avatar } from "@mui/material";
 import FaceIcon from "@mui/icons-material/Face";
 import { useDispatch, useSelector } from "react-redux";
 import { clearError, login, register } from "../../actions/userAction";
@@ -35,7 +35,7 @@ const LoginSignUp = () => {
 
     const { name, email, password } = user;
 
-    const [avatar, setAvatar] = useState();
+    const [avatar, setAvatar] = useState("./Profile.png");
     const [avatarPreview, setAvatarPreview] = useState("./Profile.png")
 
     const loginSubmit = (e) => {
@@ -76,6 +76,8 @@ const LoginSignUp = () => {
             setUser({ ...user, [e.target.name]: e.target.value })
         }
     })
+
+
 
     useEffect(() => {
         if (error) {
@@ -191,7 +193,7 @@ const LoginSignUp = () => {
 
                         <div id="registerImage" >
                             <img src={avatarPreview} alt="Avater Preview" />
-                            <input type="file" name="avater" accept="image/*" onChange={registerDateChange} />
+                            <input type="file" name="avatar" accept="image/*" onChange={registerDateChange} />
                         </div>
                         <input type="submit" value="Register" className="signUpBtn" />
 
