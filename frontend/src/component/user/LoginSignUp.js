@@ -7,13 +7,16 @@ import LockOpenIcon from "@mui/icons-material/LockOpen";
 import { Avatar } from "@mui/material";
 import FaceIcon from "@mui/icons-material/Face";
 import { useDispatch, useSelector } from "react-redux";
-import { clearError, login } from "../../actions/userAction";
-import { useAlert } from "react-alert"
+import { clearError, login, register } from "../../actions/userAction";
+import { useAlert } from "react-alert";
+import { useNavigate } from "react-router-dom";
+
 
 
 const LoginSignUp = () => {
     const dispatch = useDispatch();
     const alert = useAlert()
+    const navigator = useNavigate()
 
     const { error, loading, isAuthenticated } = useSelector(state => state.user)
 
@@ -49,7 +52,8 @@ const LoginSignUp = () => {
         myForm.set("email", email);
         myForm.set("password", password);
         myForm.set("avatar", avatar)
-        console.log("Signup From Submited");
+
+        dispatch(register(myForm))
 
 
     }
@@ -78,8 +82,12 @@ const LoginSignUp = () => {
             alert.error(error);
             dispatch(clearError)
         }
+        if (isAuthenticated) {
+            navigator("/account")
 
-    }, [dispatch, error, alert])
+        }
+
+    }, [dispatch, error, alert, isAuthenticated, navigator])
 
 
     const switchTabs = (e, tab) => {
