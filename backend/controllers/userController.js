@@ -95,7 +95,7 @@ exports.forgotPassword = catchAsyncError(
 
         await user.save({ validateBeforeSave: false })
 
-        const resetPasswordUrl = `${req.protocol}://${req.get("host")}/api/prince/password/reset${resetToken}`;
+        const resetPasswordUrl = `${req.protocol}://${req.get("host")}/password/reset${resetToken}`;
 
         const message = `Your password reset token is :- \n\n ${resetPasswordUrl} \n\nif you have not requested this emailthen, please ignore it`
 
@@ -171,8 +171,8 @@ exports.getUserDetails = catchAsyncError(
 
 // Update user password
 exports.updatePassword = catchAsyncError(
-    async (req, res) => {
-        const user = await User.findById(req, res.id).select("password");
+    async (req, res, next) => {
+        const user = await User.findById(req.user.id).select("+password");
 
         const isPasswordMatched = await user.comparePassword(req.body.oldPassword);
 
@@ -180,11 +180,11 @@ exports.updatePassword = catchAsyncError(
             return next(new ErrorHandler("Old password is incorrect", 400))
         }
 
-        if (req.body.newPassword !== req.body.cofirmpassword) {
+        if (req.body.newPassword !== req.body.confirmPassword) {
             return next(new ErrorHandler("Password doesnot match", 400))
         }
 
-        user.password = re, body.newPassword;
+        user.password = req.body.newPassword;
 
         await user.save()
 
@@ -201,16 +201,40 @@ exports.updatePassword = catchAsyncError(
 
 // Update user Profile
 exports.updateProfile = catchAsyncError(
-    async (req, res) => {
+    async (req, res, next) => {
 
         const newUserData = {
             name: req.body.name,
             email: req.body.email
         }
 
-        // we will add cloudinary later
+        // we will add cloudinary 
 
-        const user = User.findByIdAndUpdate(req.user.id, newUserData, {
+        if (req.body.avatar !== "") {
+            const user = await User.findById(req.user.id);
+
+            const imageId = user.avatar.public_id;
+
+            await cloudinary.v2.uploader.destroy(imageId)
+
+            const myCloud = await cloudinary.v2.uploader.upload(req.body.avatar, {
+                folder: "avatars",
+                width: 150,
+                crop: "scale"
+            })
+
+            newUserData.avatar = {
+                public_id: myCloud.public_id,
+                url: myCloud.secure_url,
+            };
+
+
+
+        }
+
+
+
+        const user = await User.findByIdAndUpdate(req.user.id, newUserData, {
             new: true,
             runValidators: true,
             useFindAndModify: false
