@@ -17,6 +17,7 @@ import UpdateProfile from "./component/user/UpdateProfile.js";
 import UpdatePassword from "./component/user/UpdatePassword";
 import ForgotPassword from "./component/user/ForgotPassword.js";
 import ResetPassword from "./component/User/ResetPassword.js";
+import Cart from "./component/Cart/Cart.js"
 
 
 
@@ -44,6 +45,7 @@ function App() {
         {isAuthenticated && <Route path="/me/update" element={<UpdateProfile user={user} />} />}
         {isAuthenticated && <Route path='/password/update' element={<UpdatePassword user={user} />} />}
         <Route path='/password/forgot' element={<ForgotPassword />} />
+        <Route path='/cart' element={<Cart />} />
         <Route path="/password/reset/:token" element={<ResetPassword />} />
         <Route path='/login' element={<LoginSignUp />} />
 

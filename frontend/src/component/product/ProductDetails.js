@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import Carousel from 'react-material-ui-carousel';
 import ReactStars from 'react-rating-stars-component'
@@ -7,6 +7,7 @@ import { clearError, getProductDetails } from "../../actions/productAction";
 import ReviewCard from "./ReviewCard";
 import Loader from "../loader/loadre";
 import { useAlert } from "react-alert";
+import { addItemsToCart } from "../../actions/cartAction";
 
 const ProductDetail = () => {
     let { id } = useParams()
@@ -36,12 +37,35 @@ const ProductDetail = () => {
         isHalf: true
     }
 
+    const [quantity, setQuantity] = useState(1);
+
+    const increaseQuantity = () => {
+        if (product.Stock <= quantity) return;
+
+        const qty = quantity + 1;
+        setQuantity(qty);
+    };
+
+
+    const decreaseQuantity = () => {
+        if (1 >= quantity) return;
+
+        const qty = quantity - 1;
+        setQuantity(qty);
+    };
+
+    const addToCartHandler = () => {
+        console.log(id);
+        dispatch(addItemsToCart(id, quantity));
+        alert.success("Item Added To Cart");
+    };
+
 
 
     return (
         <>
             {
-                loading ? <Loader /> : (<Fragment >
+                loading ? <Loader /> : (< >
                     <div className="w-[100vw]  max-w-[100%] flex gap-[200px]  box-border  p-[6vmax] " >
                         <div className=" lg:w-[29%] ml-[10%] ">
                             <Carousel >
@@ -73,11 +97,11 @@ const ProductDetail = () => {
 
                                 <div className="flex items-center gap-[15px]" >
                                     <div>
-                                        <button className="w-[1.5rem] bg-[#758283] text-white font-[900] my-[15px] " >-</button>
-                                        <input className="w-[3rem] pl-[12px] text-center " value="1" type="number" />
-                                        <button className="w-[1.5rem] bg-[#758283] text-white font-[900] my-[15px] " >+</button>
+                                        <button className="w-[1.5rem] bg-[#758283] text-white font-[900] my-[15px] " onClick={decreaseQuantity} >-</button>
+                                        <input readOnly className="w-[3rem] pl-[12px] text-center " value={quantity} type="number" />
+                                        <button className="w-[1.5rem] bg-[#758283] text-white font-[900] my-[15px] " onClick={increaseQuantity} >+</button>
                                     </div>
-                                    <button className="bg-[#E8BD0D] w-[8rem] text-white font-[800] h-[35px] rounded-[40px] " >Add to Cart</button>
+                                    <button className="bg-[#E8BD0D] w-[8rem] text-white font-[800] h-[35px] rounded-[40px] " onClick={addToCartHandler} >Add to Cart</button>
                                 </div>
 
 
@@ -119,7 +143,7 @@ const ProductDetail = () => {
                         </div>)
                     }
 
-                </Fragment>)
+                </>)
             }
         </>
     )
