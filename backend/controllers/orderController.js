@@ -8,14 +8,14 @@ const catchAsyncError = require("../middleware/catchAsyncError");
 exports.newOrder = catchAsyncError(
     async (req, res) => {
 
-        const { shippingInfo, orderitems, paymentinfo, itemsprice, taxPrice, shippingPrice, totalPrice } = req.body
+        const { shippingInfo, orderItems, paymentInfo, itemsPrice, taxPrice, shippingPrice, totalPrice } = req.body
 
 
         const order = await Order.create({
             shippingInfo,
-            orderitems,
-            paymentinfo,
-            itemsprice,
+            orderItems,
+            paymentInfo,
+            itemsPrice,
             taxPrice,
             shippingPrice,
             totalPrice,

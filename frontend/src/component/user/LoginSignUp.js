@@ -13,7 +13,7 @@ import { useNavigate } from "react-router-dom";
 
 
 
-const LoginSignUp = () => {
+const LoginSignUp = ({ location }) => {
     const dispatch = useDispatch();
     const alert = useAlert()
     const navigator = useNavigate()
@@ -78,6 +78,10 @@ const LoginSignUp = () => {
     })
 
 
+    const redirect = "/shipping"
+
+
+
 
     useEffect(() => {
         if (error) {
@@ -85,11 +89,11 @@ const LoginSignUp = () => {
             dispatch(clearError)
         }
         if (isAuthenticated) {
-            navigator("/account")
+            navigator(redirect)
 
         }
 
-    }, [dispatch, error, alert, isAuthenticated, navigator])
+    }, [dispatch, error, alert, isAuthenticated, navigator, redirect])
 
 
     const switchTabs = (e, tab) => {

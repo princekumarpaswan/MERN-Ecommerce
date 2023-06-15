@@ -8,8 +8,9 @@ import ProductsMain from './component/product/Product';
 import Search from "../src/component/product/Search";
 import LoginSignUp from './component/user/LoginSignUp';
 import store from "./store";
+import axios from 'axios';
 import { loadUser } from './actions/userAction';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import UserOptions from "./component/layout/header/UserOption.js";
 import { useSelector } from 'react-redux';
 import Profile from "./component/user/Profile.js";
@@ -17,17 +18,30 @@ import UpdateProfile from "./component/user/UpdateProfile.js";
 import UpdatePassword from "./component/user/UpdatePassword";
 import ForgotPassword from "./component/user/ForgotPassword.js";
 import ResetPassword from "./component/User/ResetPassword.js";
-import Cart from "./component/Cart/Cart.js"
-
+import Cart from "./component/Cart/Cart.js";
+import Shipping from "./component/Cart/Shipping.js";
+import ConfirmOrder from "./component/Cart/ConfirmOrder.js"
+import Payment from "./component/Cart/Payment.js";
+import OrderSuccess from "./component/Cart/OrderSuccess.js";
+import { Elements } from '@stripe/react-stripe-js';
+import { loadStripe } from '@stripe/stripe-js';
 
 
 function App() {
 
   const { isAuthenticated, user } = useSelector(state => state.user)
 
+  const [stripeApiKey, setStripeApiKey] = useState("");
+
+  async function getStripeApiKey() {
+    const { data } = await axios.get("/api/prince/stripeapikey");
+
+    setStripeApiKey(data.stripeApiKey);
+  }
 
   useEffect(() => {
     store.dispatch(loadUser());
+    getStripeApiKey();
   }, [])
 
 
@@ -44,6 +58,10 @@ function App() {
         {isAuthenticated && <Route path="/account" element={<Profile user={user} />} />}
         {isAuthenticated && <Route path="/me/update" element={<UpdateProfile user={user} />} />}
         {isAuthenticated && <Route path='/password/update' element={<UpdatePassword user={user} />} />}
+        {isAuthenticated && <Route path='/shipping' element={<Shipping user={user} />} />}
+        {isAuthenticated && <Route path='/success' element={<OrderSuccess user={user} />} />}
+        {isAuthenticated && <Route path='/order/confirm' element={<ConfirmOrder user={user} />} />}
+        {isAuthenticated && <Route path='/process/payment' element={<Elements stripe={loadStripe(stripeApiKey)} ><Payment user={user} /></Elements>} />}
         <Route path='/password/forgot' element={<ForgotPassword />} />
         <Route path='/cart' element={<Cart />} />
         <Route path="/password/reset/:token" element={<ResetPassword />} />
