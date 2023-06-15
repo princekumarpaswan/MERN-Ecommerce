@@ -17,7 +17,7 @@ import Profile from "./component/user/Profile.js";
 import UpdateProfile from "./component/user/UpdateProfile.js";
 import UpdatePassword from "./component/user/UpdatePassword";
 import ForgotPassword from "./component/user/ForgotPassword.js";
-import ResetPassword from "./component/User/ResetPassword.js";
+import ResetPassword from "./component/admin/User/ResetPassword.js";
 import Cart from "./component/Cart/Cart.js";
 import Shipping from "./component/Cart/Shipping.js";
 import ConfirmOrder from "./component/Cart/ConfirmOrder.js"
@@ -25,6 +25,15 @@ import Payment from "./component/Cart/Payment.js";
 import OrderSuccess from "./component/Cart/OrderSuccess.js";
 import { Elements } from '@stripe/react-stripe-js';
 import { loadStripe } from '@stripe/stripe-js';
+import MyOrders from "./component/Order/MyOrders.js";
+import OrderDetails from "./component/Order/OrderDetails.js";
+import Dashboard from "./component/admin/Dashboard.js";
+import ProductList from "./component/admin/ProductList.js"
+import NewProduct from './component/admin/NewProduct';
+import UpdateProduct from "./component/admin/UpdateProduct.js";
+import OrderList from "./component/admin/OrderList"
+import ProcessOrder from './component/admin/ProcessOrder';
+import UsersList from './component/admin/UsersList';
 
 
 function App() {
@@ -62,6 +71,15 @@ function App() {
         {isAuthenticated && <Route path='/success' element={<OrderSuccess user={user} />} />}
         {isAuthenticated && <Route path='/order/confirm' element={<ConfirmOrder user={user} />} />}
         {isAuthenticated && <Route path='/process/payment' element={<Elements stripe={loadStripe(stripeApiKey)} ><Payment user={user} /></Elements>} />}
+        {isAuthenticated && <Route path='/orders' element={<MyOrders user={user} />} />}
+        {isAuthenticated && <Route path='/order/:id' element={<OrderDetails user={user} />} />}
+        {isAuthenticated && <Route path="/admin/dashboard" element={<Dashboard user={user} />} />}
+        {isAuthenticated && <Route path="/admin/products" element={<ProductList user={user} />} />}
+        {isAuthenticated && <Route path="/admin/product" element={<NewProduct user={user} />} />}
+        {isAuthenticated && <Route path="/admin/product/:id" element={<UpdateProduct user={user} />} />}
+        {isAuthenticated && <Route path="/admin/orders" element={<OrderList user={user} />} />}
+        {isAuthenticated && <Route path="/admin/order/:id" element={<ProcessOrder user={user} />} />}
+        {isAuthenticated && <Route path="/admin/users" element={<UsersList user={user} />} />}
         <Route path='/password/forgot' element={<ForgotPassword />} />
         <Route path='/cart' element={<Cart />} />
         <Route path="/password/reset/:token" element={<ResetPassword />} />

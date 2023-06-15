@@ -2,12 +2,37 @@ const Product = require("../models/productModel");
 const ErrorHandler = require("../util/errorhandler");
 const catchAsyncError = require("../middleware/catchAsyncError");
 const Apifeatures = require("../util/apiFeatures");
+const cloudinary = require("cloudinary")
 
 
 
 // Create Product --Admin
 exports.createProduct = catchAsyncError(
     async (req, res, next) => {
+
+        let images = [];
+
+        if (typeof req.body.images === "string") {
+            images.push(req.body.images);
+        } else {
+            images = req.body.images;
+        }
+
+        const imagesLinks = [];
+
+        for (let i = 0; i < images.length; i++) {
+            const result = await cloudinary.v2.uploader.upload(images[i], {
+                folder: "products",
+            });
+
+            imagesLinks.push({
+                public_id: result.public_id,
+                url: result.secure_url,
+            });
+        }
+
+        req.body.image = imagesLinks;
+        req.body.user = req.user.id;
 
         req.body.user = req.user.id;
 
@@ -43,6 +68,30 @@ exports.getAllProducts = catchAsyncError(
     }
 )
 
+// Get All Product (Admin)
+exports.getAdminProducts = catchAsyncError(async (req, res, next) => {
+    const products = await Product.find();
+
+    res.status(200).json({
+        success: true,
+        products,
+    });
+});
+
+// Get Product Details
+exports.getProductDetails = catchAsyncError(async (req, res, next) => {
+    const product = await Product.findById(req.params.id);
+
+    if (!product) {
+        return next(new ErrorHander("Product not found", 404));
+    }
+
+    res.status(200).json({
+        success: true,
+        product,
+    });
+});
+
 // Update Product --Admin
 
 exports.updateProduct = catchAsyncError(
@@ -54,6 +103,37 @@ exports.updateProduct = catchAsyncError(
                 sucess: false,
                 message: "Product not found"
             })
+        }
+
+        // Images Start Here
+        let images = [];
+
+        if (typeof req.body.images === "string") {
+            images.push(req.body.images);
+        } else {
+            images = req.body.images;
+        }
+
+        if (images !== undefined) {
+            // Deleting Images From Cloudinary
+            for (let i = 0; i < product.image.length; i++) {
+                await cloudinary.v2.uploader.destroy(product.image[i].public_id);
+            }
+
+            const imagesLinks = [];
+
+            for (let i = 0; i < images.length; i++) {
+                const result = await cloudinary.v2.uploader.upload(images[i], {
+                    folder: "products",
+                });
+
+                imagesLinks.push({
+                    public_id: result.public_id,
+                    url: result.secure_url,
+                });
+            }
+
+            req.body.images = imagesLinks;
         }
 
         product = await Product.findByIdAndUpdate(req.params.id, req.body, {
@@ -80,6 +160,11 @@ exports.deleteProduct = catchAsyncError(
                 sucess: false,
                 message: "product not found"
             })
+        }
+
+        // Deleting Images From Cloudinary
+        for (let i = 0; i < product.image.length; i++) {
+            await cloudinary.v2.uploader.destroy(product.image[i].public_id);
         }
 
         await product.deleteOne()
@@ -126,17 +211,15 @@ exports.createProductReview = catchAsyncError(
 
         const product = await Product.findById(productId);
 
-        const isReviewed = product.reviews.find(rev => rev.user.toSting() === req.user._id)
+        // console.log(product.reviews.user);
 
+        const isReviewed = await product.reviews.find((rev) => rev.user.toSting() === req.user._id.toSting())
 
         if (isReviewed) {
 
-            product.reviews.forEach(rev => {
+            product.reviews.forEach((rev) => {
 
-                if (rev.user.toString() === req.user._id.toString())
-
-                    rev.rating = rating,
-                        rev.comment = comment
+                if (rev.user.toString() === req.user._id.toString()) (rev.rating = rating), (rev.comment = comment)
             })
 
 

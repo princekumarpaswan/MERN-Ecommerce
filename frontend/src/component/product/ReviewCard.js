@@ -2,8 +2,8 @@ import React from "react";
 import ReactStars from "react-rating-stars-component"
 import profile from "./image/Profile.png"
 
-const ReviewCard = (review) => {
-
+const ReviewCard = ({ review }) => {
+    // console.log(review);
 
     const options = {
         edit: false,

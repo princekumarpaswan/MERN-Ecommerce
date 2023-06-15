@@ -210,6 +210,27 @@ exports.updateProfile = catchAsyncError(
 
         // we will add cloudinary 
 
+
+        if (req.body.avatar !== "") {
+            const user = await User.findById(req.user.id);
+
+            const imageId = user.avatar.public_id;
+
+            await cloudinary.v2.uploader.destroy(imageId);
+
+            const myCloud = await cloudinary.v2.uploader.upload(req.body.avatar, {
+                folder: "avatars",
+                width: 150,
+                crop: "scale",
+            });
+
+            newUserData.avatar = {
+                public_id: myCloud.public_id,
+                url: myCloud.secure_url,
+            };
+        }
+
+
         if (req.body.avatar !== "") {
             const user = await User.findById(req.user.id);
 
@@ -318,6 +339,10 @@ exports.deleteUser = catchAsyncError(
         if (!user) {
             return next(new ErrorHandler(`User does not exist with Id: ${req.params.id}`))
         }
+
+        const imageId = user.avatar.public_id;
+
+        await cloudinary.v2.uploader.destroy(imageId);
 
         await user.remove();
 

@@ -1,0 +1,10 @@
+.submitDialog{
+    display: flex;
+    flex-direction: column;
+}
+
+.submitDialogTextArea{
+    border: 1px solid black;
+    margin: 1vmax 0;
+    padding: 1rem;
+}
