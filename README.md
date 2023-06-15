@@ -1,3 +1,3 @@
 # MERN-Ecommerce
 
-### Complted Deployment Soon 
+### Completed Deployment Soon 
