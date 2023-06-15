@@ -34,6 +34,8 @@ import UpdateProduct from "./component/admin/UpdateProduct.js";
 import OrderList from "./component/admin/OrderList"
 import ProcessOrder from './component/admin/ProcessOrder';
 import UsersList from './component/admin/UsersList';
+import UpdateUser from './component/admin/UpdateUser';
+import ProductReviews from './component/admin/ProductReviews';
 
 
 function App() {
@@ -80,6 +82,8 @@ function App() {
         {isAuthenticated && <Route path="/admin/orders" element={<OrderList user={user} />} />}
         {isAuthenticated && <Route path="/admin/order/:id" element={<ProcessOrder user={user} />} />}
         {isAuthenticated && <Route path="/admin/users" element={<UsersList user={user} />} />}
+        {isAuthenticated && <Route path="/admin/users/:id" element={<UpdateUser user={user} />} />}
+        {isAuthenticated && <Route path="/admin/reviews" element={<ProductReviews user={user} />} />}
         <Route path='/password/forgot' element={<ForgotPassword />} />
         <Route path='/cart' element={<Cart />} />
         <Route path="/password/reset/:token" element={<ResetPassword />} />

@@ -18,7 +18,7 @@ const UsersList = () => {
 
     const alert = useAlert();
 
-    const { error, users } = useSelector((state) => state.allUsers);
+    const { error, user } = useSelector((state) => state.allUsers);
 
     const {
         error: deleteError,
@@ -110,8 +110,8 @@ const UsersList = () => {
 
     const rows = [];
 
-    users &&
-        users.forEach((item) => {
+    user &&
+        user.forEach((item) => {
             rows.push({
                 id: item._id,
                 role: item.role,

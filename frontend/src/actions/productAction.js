@@ -18,7 +18,12 @@ import {
     UPDATE_PRODUCT_REQUEST,
     UPDATE_PRODUCT_SUCCESS,
     UPDATE_PRODUCT_FAIL,
-    NEW_PRODUCT_RESET,
+    ALL_REVIEW_REQUEST,
+    ALL_REVIEW_SUCCESS,
+    ALL_REVIEW_FAIL,
+    DELETE_REVIEW_REQUEST,
+    DELETE_REVIEW_SUCCESS,
+    DELETE_REVIEW_FAIL,
     DELETE_PRODUCT_REQUEST,
     DELETE_PRODUCT_SUCCESS,
     DELETE_PRODUCT_FAIL,
@@ -189,7 +194,45 @@ export const newReview = (reviewData) => async (dispatch) => {
     }
 };
 
+// Get All Reviews of a Product
+export const getAllReviews = (id) => async (dispatch) => {
+    try {
+        dispatch({ type: ALL_REVIEW_REQUEST });
 
+        const { data } = await axios.get(`/api/prince/review?id=${id}`);
+
+        dispatch({
+            type: ALL_REVIEW_SUCCESS,
+            payload: data.reviews,
+        });
+    } catch (error) {
+        dispatch({
+            type: ALL_REVIEW_FAIL,
+            payload: error.response.data.message,
+        });
+    }
+};
+
+// Delete Review of a Product
+export const deleteReviews = (reviewId, productId) => async (dispatch) => {
+    try {
+        dispatch({ type: DELETE_REVIEW_REQUEST });
+
+        const { data } = await axios.delete(
+            `/api/prince/review?id=${reviewId}&productId=${productId}`
+        );
+
+        dispatch({
+            type: DELETE_REVIEW_SUCCESS,
+            payload: data.success,
+        });
+    } catch (error) {
+        dispatch({
+            type: DELETE_REVIEW_FAIL,
+            payload: error.response.data.message,
+        });
+    }
+};
 
 
 
