@@ -192,7 +192,7 @@ export const getAllUsers = () => async (dispatch) => {
         dispatch({ type: ALL_USERS_REQUEST });
         const { data } = await axios.get(`/api/prince/admin/users`);
 
-        dispatch({ type: ALL_USERS_SUCCESS, payload: data.users });
+        dispatch({ type: ALL_USERS_SUCCESS, payload: data.user });
     } catch (error) {
         dispatch({ type: ALL_USERS_FAIL, payload: error.response.data.message });
     }
