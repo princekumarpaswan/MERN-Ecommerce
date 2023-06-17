@@ -264,6 +264,7 @@ exports.updateProfile = catchAsyncError(
 
         res.status(200).json({
             sucess: true,
+            // user
         })
 
 

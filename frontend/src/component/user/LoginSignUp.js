@@ -78,7 +78,7 @@ const LoginSignUp = ({ location }) => {
     })
 
 
-    const redirect = "/shipping"
+    const redirect = "/"
 
 
 

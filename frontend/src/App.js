@@ -36,6 +36,8 @@ import ProcessOrder from './component/admin/ProcessOrder';
 import UsersList from './component/admin/UsersList';
 import UpdateUser from './component/admin/UpdateUser';
 import ProductReviews from './component/admin/ProductReviews';
+import AboutUS from './component/layout/AboutUs';
+import Contact from './component/layout/ContactUS';
 
 
 const App = () => {
@@ -93,6 +95,8 @@ const App = () => {
         <Route path='/cart' element={<Cart />} />
         <Route path="/password/reset/:token" element={<ResetPassword />} />
         <Route path='/login' element={<LoginSignUp />} />
+        <Route path='/about' element={<AboutUS />} />
+        <Route path='/contact' element={<Contact />} />
 
       </Routes>
       <Footer />

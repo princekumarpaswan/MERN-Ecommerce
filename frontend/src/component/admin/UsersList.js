@@ -18,7 +18,7 @@ const UsersList = () => {
 
     const alert = useAlert();
 
-    const { error, user } = useSelector((state) => state.allUsers);
+    const { error, users } = useSelector((state) => state.allUsers);
 
     const {
         error: deleteError,
@@ -74,7 +74,7 @@ const UsersList = () => {
             flex: 0.3,
             cellClassName: (params) => {
                 const id = (params.id)
-                return params.getValue(id, "role") === "admin"
+                return (id, "role") === "admin"
                     ? "greenColor"
                     : "redColor";
             },
@@ -91,7 +91,7 @@ const UsersList = () => {
                 const id = (params.id)
                 return (
                     <>
-                        <Link to={`/admin/user/${id}`}>
+                        <Link to={`/admin/users/${id}`}>
                             <EditIcon />
                         </Link>
 
@@ -110,8 +110,8 @@ const UsersList = () => {
 
     const rows = [];
 
-    user &&
-        user.forEach((item) => {
+    users &&
+        users.forEach((item) => {
             rows.push({
                 id: item._id,
                 role: item.role,
