@@ -8,22 +8,22 @@ const ProtectedRoute = ({ isAdmin, component: Component, ...rest }) => {
 
     return (
         <>
-            {/* {loading === false && ( */}
-            <Route
-                {...rest}
-                render={(props) => {
-                    if (isAuthenticated === false) {
-                        return navigate("/login");
-                    }
+            {loading === false && (
+                <Route
+                    {...rest}
+                    render={(props) => {
+                        if (isAuthenticated === false) {
+                            return navigate("/login");
+                        }
 
-                    if (isAdmin === true && user.role !== "admin") {
-                        return navigate("/login");
-                    }
+                        if (isAdmin === true && user.role !== "admin") {
+                            return navigate("/login");
+                        }
 
-                    return <Component {...props} />;
-                }}
-            />
-            {/* )} */}
+                        return <Component {...props} />;
+                    }}
+                />
+            )}
         </>
     );
 };

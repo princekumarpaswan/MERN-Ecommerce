@@ -3,19 +3,39 @@ import Sidebar from "./Sidebar.js";
 import "./dashboard.css";
 import { Typography } from "@mui/material";
 import { Link } from "react-router-dom";
-import { Doughnut } from 'react-chartjs-2';
+import { Doughnut, Line } from 'react-chartjs-2';
 // import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
-
+import {
+    Chart as ChartJS,
+    CategoryScale,
+    LinearScale,
+    PointElement,
+    LineElement,
+    Title,
+    Tooltip,
+    Legend,
+    ArcElement,
+} from 'chart.js';
 import { useSelector, useDispatch } from "react-redux";
 import { getAdminProduct } from "../../actions/productAction.js";
 import { getAllOrders } from "../../actions/orderAction.js";
 import { getAllUsers } from "../../actions/userAction.js";
 import MetaData from "../layout/MetaData.js";
-import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
+// import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
 
 
 const Dashboard = () => {
-    ChartJS.register(ArcElement, Tooltip, Legend);
+    // ChartJS.register(ArcElement, Tooltip, Legend);
+    ChartJS.register(
+        CategoryScale,
+        LinearScale,
+        PointElement,
+        LineElement,
+        Title,
+        Tooltip,
+        Legend,
+        ArcElement,
+    );
 
     const dispatch = useDispatch();
 
@@ -88,11 +108,11 @@ const Dashboard = () => {
                     <div className="dashboardSummaryBox2">
                         <Link to="/admin/products">
                             <p>Product</p>
-                            <p>{allproduct}</p>
+                            <p>500</p>
                         </Link>
                         <Link to="/admin/orders">
                             <p>Orders</p>
-                            <p>{totalorders}</p>
+                            <p>5</p>
                         </Link>
                         <Link to="/admin/users">
                             <p>Users</p>
@@ -101,11 +121,11 @@ const Dashboard = () => {
                     </div>
                 </div>
 
-                {/* <div className="lineChart">
+                <div className="lineChart w-[100%] pt-[50px] items-center flex justify-center ">
                     <Line data={lineState} />
-                </div> */}
+                </div>
 
-                <div className="doughnutChart">
+                <div className="doughnutChart w-[100%] pt-[70px] items-center flex justify-center ">
                     <Doughnut data={doughnutState} />
                 </div>
             </div>

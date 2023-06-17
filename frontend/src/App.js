@@ -9,7 +9,7 @@ import Search from "../src/component/product/Search";
 import LoginSignUp from './component/user/LoginSignUp';
 import store from "./store";
 import axios from 'axios';
-import { loadUser } from './actions/userAction';
+import { loadUser, clearError } from './actions/userAction';
 import { useEffect, useState } from 'react';
 import UserOptions from "./component/layout/header/UserOption.js";
 import { useSelector } from 'react-redux';
@@ -38,21 +38,25 @@ import UpdateUser from './component/admin/UpdateUser';
 import ProductReviews from './component/admin/ProductReviews';
 
 
-function App() {
+const App = () => {
 
   const { isAuthenticated, user } = useSelector(state => state.user)
 
   const [stripeApiKey, setStripeApiKey] = useState("");
 
   async function getStripeApiKey() {
+    console.log("prince")
     const { data } = await axios.get("/api/prince/stripeapikey");
+    console.log(data)
 
     setStripeApiKey(data.stripeApiKey);
   }
 
   useEffect(() => {
-    store.dispatch(loadUser());
     getStripeApiKey();
+    store.dispatch(loadUser(), clearError());
+    // store.dispatch()
+
   }, [])
 
 
@@ -61,6 +65,8 @@ function App() {
       <Header />
       {isAuthenticated && <UserOptions user={user} />}
       <Routes>
+        {stripeApiKey && (isAuthenticated && <Route path='/process/payment' element={<Elements stripe={loadStripe(stripeApiKey)} ><Payment user={user} /></Elements>} />
+        )}
         <Route path="/" element={<Home />} />
         <Route path="/product/:id" element={<ProductDetails />} />
         <Route path='/products' element={<ProductsMain />} />
@@ -72,7 +78,6 @@ function App() {
         {isAuthenticated && <Route path='/shipping' element={<Shipping user={user} />} />}
         {isAuthenticated && <Route path='/success' element={<OrderSuccess user={user} />} />}
         {isAuthenticated && <Route path='/order/confirm' element={<ConfirmOrder user={user} />} />}
-        {isAuthenticated && <Route path='/process/payment' element={<Elements stripe={loadStripe(stripeApiKey)} ><Payment user={user} /></Elements>} />}
         {isAuthenticated && <Route path='/orders' element={<MyOrders user={user} />} />}
         {isAuthenticated && <Route path='/order/:id' element={<OrderDetails user={user} />} />}
         {isAuthenticated && <Route path="/admin/dashboard" element={<Dashboard user={user} />} />}

@@ -1,4 +1,4 @@
-// import { CLEAR_ERROR } from "../constants/productConstants";
+import { CLEAR_ERROR } from "../constants/productConstants";
 import {
     LOGIN_REQUEST,
     LOGIN_FAIL,
@@ -244,6 +244,7 @@ export const deleteUser = (id) => async (dispatch) => {
         dispatch({
             type: DELETE_USER_FAIL,
             payload: error.response.data.message,
+
         });
     }
 };
