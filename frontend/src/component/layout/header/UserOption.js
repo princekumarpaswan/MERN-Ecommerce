@@ -66,7 +66,7 @@ const UserOptions = ({ user }) => {
 
     return (
         <>
-            <div className="absolute ml-[88%] mt-[-4.2rem] h-[50px] " >
+            <div className="absolute ml-[87%] mt-[-4.2rem] h-[50px] " >
                 <SpeedDial
                     ariaLabel="SpeedDial tooltip example"
                     onClose={() => setOpen(false)}

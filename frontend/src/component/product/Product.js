@@ -31,7 +31,7 @@ const ProductsMain = () => {
     const [category, setCategory] = useState("")
     const [ratings, setRatings] = useState(0)
 
-    const { products, error, loading, productsCount, resultPerPage } = useSelector(state => state.products)
+    const { products, error, loading, productsCount, resultPerPage, filterProducts } = useSelector(state => state.products)
 
     const alert = useAlert()
 
@@ -76,7 +76,7 @@ const ProductsMain = () => {
                             }
                         </div>
 
-                        <div className="filterBox w-[10vmax] p-[20px] absolute lg:mt-[-50%]">
+                        <div className="filterBox w-[10vmax] bg-yellow-400 p-[20px] pt-[80px] absolute top-[83px] h-[100vh] ">
                             <Typography>Price</Typography>
                             <Slider value={price}
                                 onChange={priceHandler}

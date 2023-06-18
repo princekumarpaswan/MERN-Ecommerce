@@ -108,18 +108,18 @@ const ProductDetail = () => {
         <>
             {
                 loading ? <Loader /> : (< >
-                    <div className="w-[100vw]  max-w-[100%] flex gap-[200px]  box-border  p-[6vmax] " >
-                        <div className=" lg:w-[29%] ml-[10%] ">
+                    <div className="w-[100vw]  flex gap-[200px]  box-border  p-[6vmax] " >
+                        <div className=" lg:w-[500px] flex-2 ml-[10%] ">
                             <Carousel >
                                 {
                                     product.image && product.image.map((item, i) => (
-                                        <img key={item.url} src={item.url} alt={`${i} Slide`} />
+                                        <img className="object-fill w-[100%] h-[600px]" key={item.url} src={item.url} alt={`${i} Slide`} />
                                     ))
                                 }
                             </Carousel>
                         </div>
 
-                        <div className="border-[2px] p-[30px] border-[#E8BD0D] " >
+                        <div className="border-[2px] flex-1 p-[30px] border-[#E8BD0D] " >
 
                             <div>
                                 <h2 className="text-[35px] font-[800] " >{product.name}</h2>

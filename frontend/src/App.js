@@ -38,6 +38,7 @@ import UpdateUser from './component/admin/UpdateUser';
 import ProductReviews from './component/admin/ProductReviews';
 import AboutUS from './component/layout/AboutUs';
 import Contact from './component/layout/ContactUS';
+import NotFound from './component/layout/NotFound';
 
 
 const App = () => {
@@ -49,7 +50,7 @@ const App = () => {
   async function getStripeApiKey() {
     console.log("prince")
     const { data } = await axios.get("/api/prince/stripeapikey");
-    console.log(data)
+    // console.log(data)
 
     setStripeApiKey(data.stripeApiKey);
   }
@@ -60,6 +61,8 @@ const App = () => {
     // store.dispatch()
 
   }, [])
+
+  window.addEventListener("contextmenu", (e) => { e.preventDefault() })
 
 
   return (
@@ -97,7 +100,7 @@ const App = () => {
         <Route path='/login' element={<LoginSignUp />} />
         <Route path='/about' element={<AboutUS />} />
         <Route path='/contact' element={<Contact />} />
-
+        <Route path='*' element={<NotFound />} />
       </Routes>
       <Footer />
     </>
