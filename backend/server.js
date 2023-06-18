@@ -3,7 +3,11 @@ const app = require("./app");
 const connectDatabase = require("./config/database");
 const cloudnary = require("cloudinary");
 const cors = require("cors");
+const helmet = require('helmet')
 
+
+
+app.use(helmet())
 app.use(cors());
 
 
