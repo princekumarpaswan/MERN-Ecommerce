@@ -1,3 +1,4 @@
 node_module
 express-fileupload
 cloudinary
+.env
