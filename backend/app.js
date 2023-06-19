@@ -9,7 +9,10 @@ const cors = require("cors");
 // const helmet = require('helmet')
 
 // app.use(helmet())
-app.use(cors());
+app.use(cors({
+    origin: [process.env.CLIENT_URL],
+    credentials: true,
+}));
 // config
 dotenv.config({ path: "./backend/config/congif.env" })
 
