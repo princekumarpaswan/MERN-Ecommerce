@@ -38,7 +38,7 @@ const Home = () => {
                     <h1>Featured Products</h1>
                     <hr className="border border-[2px] border-[#E8BD0D] mx-[35%] mt-[15px]" />
                 </div>
-                <div className=" lg:mx-[50px] mx-auto w-[100%] h-[100%] pb-[50px] overflow-hidden flex flex-wrap" id="container">
+                <div className="  mx-auto w-[100%] h-[100%] pb-[50px] overflow-hidden flex flex-wrap" id="container">
 
                     {
                         products && products.map((product) => (
