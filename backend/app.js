@@ -6,9 +6,9 @@ const bodyParser = require("body-parser")
 const fileUploader = require("express-fileupload")
 const dotenv = require("dotenv");
 const cors = require("cors");
-const helmet = require('helmet')
+// const helmet = require('helmet')
 
-app.use(helmet())
+// app.use(helmet())
 app.use(cors());
 // config
 dotenv.config({ path: "./backend/config/congif.env" })

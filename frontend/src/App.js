@@ -48,16 +48,14 @@ const App = () => {
   const [stripeApiKey, setStripeApiKey] = useState("");
 
   async function getStripeApiKey() {
-    console.log("prince")
     const { data } = await axios.get("/api/prince/stripeapikey");
-    // console.log(data)
 
     setStripeApiKey(data.stripeApiKey);
   }
 
   useEffect(() => {
     getStripeApiKey();
-    store.dispatch(loadUser(), clearError());
+    store.dispatch(loadUser());
     // store.dispatch()
 
   }, [])
