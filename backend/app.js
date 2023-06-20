@@ -9,13 +9,15 @@ const cors = require("cors");
 // const helmet = require('helmet')
 
 // app.use(helmet())
-app.use(cors({
-    credentials: true,
-    origin: process.env.CLIENT_URL,
 
-}));
 // config
 dotenv.config({ path: "./backend/config/congif.env" })
+app.use(cors({
+    credentials: true,
+    origin: "https://princee-commerce.netlify.app",
+
+}));
+
 
 
 app.use(express.json());
