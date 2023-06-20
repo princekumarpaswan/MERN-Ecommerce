@@ -14,7 +14,7 @@ const cors = require("cors");
 dotenv.config({ path: "./backend/config/congif.env" })
 app.use(cors({
     credentials: true,
-    origin: "https://princee-commerce.netlify.app",
+    origin: "http://localhost:3000",
 
 }));
 
