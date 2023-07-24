@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import Carousel from 'react-material-ui-carousel';
-import ReactStars from 'react-rating-stars-component'
+// import ReactStars from 'react-rating-stars-component'
 import { useSelector, useDispatch } from "react-redux"
 import { clearError, getProductDetails, newReview, } from "../../actions/productAction";
 import ReviewCard from "./ReviewCard";
