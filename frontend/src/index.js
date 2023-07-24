@@ -8,7 +8,7 @@ import { positions, transitions, Provider as AlertProvider } from "react-alert";
 import AlertTemplate from 'react-alert-template-basic';
 import axios from 'axios';
 
-axios.defaults.baseURL = "http://localhost:4000"
+// axios.defaults.baseURL = "http://192.168.31.136:4000"
 axios.defaults.withCredentials = true;
 
 
